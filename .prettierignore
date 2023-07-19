@@ -7,6 +7,6 @@ package.json
 README.md
 .husky
 .lintstagedrc.js
-next.config.js
+next.config.mjs
 jest.config.mjs
 tsconfig.json
