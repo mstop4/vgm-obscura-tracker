@@ -1,0 +1,12 @@
+.next
+.eslintrc.json
+.prettierrc.json
+next-env.d.ts
+package-lock.json
+package.json
+README.md
+.husky
+.lintstagedrc.js
+next.config.js
+jest.config.mjs
+tsconfig.json
