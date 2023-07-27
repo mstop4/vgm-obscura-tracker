@@ -12,8 +12,10 @@ export const roboto = Roboto({
 // Create a theme instance.
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     background: {
       default: '#607080',
+      paper: '#303030',
     },
     text: {
       primary: '#FFFFFF',

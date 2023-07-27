@@ -2,7 +2,6 @@ import { Container, Paper, Typography } from '@mui/material';
 import VideoDataTable from '@components/VideoDataTable';
 import { YoutubeData, getChannelData } from '../../lib/dataFetch';
 import { Open_Sans } from 'next/font/google';
-import '@styles/Home.scss';
 
 const openSans = Open_Sans({
   weight: ['800'],

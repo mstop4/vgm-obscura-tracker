@@ -17,7 +17,14 @@ const now = new Date();
 
 const columns: GridColDef[] = [
   { field: 'title', headerName: 'Title', flex: 6 }, // 400
-  { field: 'views', headerName: 'Views', type: 'number', flex: 2 }, // 100
+  {
+    field: 'views',
+    headerName: 'Views',
+    type: 'number',
+    flex: 2,
+    align: 'left',
+    headerAlign: 'left',
+  }, // 100
   {
     field: 'publishedAt',
     headerName: 'Upload Date',
@@ -30,6 +37,8 @@ const columns: GridColDef[] = [
     headerName: 'Views/Day',
     type: 'number',
     flex: 2,
+    align: 'left',
+    headerAlign: 'left',
     valueGetter: (params: GridValueGetterParams) => {
       const { views, publishedAt } = params.row;
       const uploadDate = new Date(publishedAt);
@@ -39,7 +48,14 @@ const columns: GridColDef[] = [
       ).toFixed(2);
     },
   }, // 100
-  { field: 'hiatus', headerName: 'Hiatus (Days)', type: 'number', flex: 2 },
+  {
+    field: 'hiatus',
+    headerName: 'Hiatus (Days)',
+    type: 'number',
+    flex: 2,
+    align: 'left',
+    headerAlign: 'left',
+  },
   {
     field: 'duration',
     headerName: 'Duration',
@@ -73,7 +89,14 @@ const columns: GridColDef[] = [
       return `${likes} / ${dislikes}\n(${likeRatio}%)`;
     },
   }, // 110
-  { field: 'comments', headerName: 'Comments', type: 'number', flex: 2 }, // 100
+  {
+    field: 'comments',
+    headerName: 'Comments',
+    type: 'number',
+    flex: 2,
+    align: 'left',
+    headerAlign: 'left',
+  }, // 100
 ];
 
 export default function VideoDataTable(props: VideoDataTableProps) {
@@ -105,7 +128,7 @@ export default function VideoDataTable(props: VideoDataTableProps) {
       columns={columns}
       initialState={{
         pagination: {
-          paginationModel: { page: 0, pageSize: 30 },
+          paginationModel: { page: 0, pageSize: 50 },
         },
       }}
     />
