@@ -1,4 +1,4 @@
-import { VideoData } from '../lib/dataFetch';
+import { VideoData } from '../../lib/dataFetch';
 
 export type VideoDataTableProps = {
   videoData: Array<VideoData>;

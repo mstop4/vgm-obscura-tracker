@@ -1,13 +1,14 @@
-import VideoDataTable from '@components/VideoDataTable';
+import { Container, Typography } from '@mui/material';
+// import VideoDataTable from '@components/VideoDataTable';
 import { YoutubeData, getChannelData } from '../../lib/dataFetch';
+import styles from '@styles/Home.module.scss';
 
 export default async function Home() {
-  const channelData: YoutubeData = await getChannelData();
+  // const channelData: YoutubeData = await getChannelData();
 
   return (
-    <main>
-      <h1>Welcome!</h1>
-      <VideoDataTable videoData={channelData.data} />
-    </main>
+    <Container className={styles.contain} maxWidth="lg">
+      <Typography>Test</Typography>
+    </Container>
   );
 }
