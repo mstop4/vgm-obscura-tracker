@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from '@/theme';
 
 export const metadata: Metadata = {
   title: 'VGM Obscura Dashboard',
@@ -12,7 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <ThemeProvider theme={theme}>
+        <body>
+          <CssBaseline />
+          {children}
+        </body>
+      </ThemeProvider>
     </html>
   );
 }

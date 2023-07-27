@@ -7,8 +7,10 @@ export default async function Home() {
   // const channelData: YoutubeData = await getChannelData();
 
   return (
-    <Container className={styles.contain} maxWidth="lg">
-      <Typography>Test</Typography>
+    <Container maxWidth="lg">
+      <Typography align="center" variant="h2">
+        VGM Obscura Stats
+      </Typography>
     </Container>
   );
 }
