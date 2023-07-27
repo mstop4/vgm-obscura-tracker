@@ -1,10 +1,11 @@
+'use client';
+
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from '@mui/material';
+  DataGrid,
+  GridColDef,
+  GridValueFormatterParams,
+  GridValueGetterParams,
+} from '@mui/x-data-grid';
 import { VideoData } from '../../lib/dataFetch';
 import { MS_PER_DAY, formatTime } from '../../lib/timeUtils';
 
@@ -12,76 +13,101 @@ export type VideoDataTableProps = {
   videoData: Array<VideoData>;
 };
 
+const now = new Date();
+
+const columns: GridColDef[] = [
+  { field: 'title', headerName: 'Title', flex: 6 }, // 400
+  { field: 'views', headerName: 'Views', type: 'number', flex: 2 }, // 100
+  {
+    field: 'publishedAt',
+    headerName: 'Upload Date',
+    flex: 3,
+    valueFormatter: (params: GridValueFormatterParams<string>) =>
+      new Date(params.value).toLocaleDateString(),
+  }, // 120
+  {
+    field: 'viewsPerDay',
+    headerName: 'Views/Day',
+    type: 'number',
+    flex: 2,
+    valueGetter: (params: GridValueGetterParams) => {
+      const { views, publishedAt } = params.row;
+      const uploadDate = new Date(publishedAt);
+      return (
+        views /
+        ((now.getTime() - uploadDate.getTime()) / MS_PER_DAY)
+      ).toFixed(2);
+    },
+  }, // 100
+  { field: 'hiatus', headerName: 'Hiatus (Days)', type: 'number', flex: 2 },
+  {
+    field: 'duration',
+    headerName: 'Duration',
+    flex: 2,
+    valueFormatter: (params: GridValueFormatterParams<number>) =>
+      formatTime(params.value),
+  }, // 100
+  {
+    field: 'averageViewDuration',
+    headerName: 'Average View Duration',
+    flex: 3,
+    valueGetter: (params: GridValueGetterParams) => {
+      const { averageViewDuration, duration } = params.row;
+      const averageDurationString = formatTime(averageViewDuration);
+      const viewDurationRatio = (
+        (averageViewDuration / duration) *
+        100
+      ).toFixed(1);
+
+      return `${averageDurationString} (${viewDurationRatio}%)`;
+    },
+  }, // 175
+  {
+    field: 'likes',
+    headerName: 'Likes/Dislikes',
+    flex: 3,
+    valueGetter: (params: GridValueGetterParams) => {
+      const { likes, dislikes } = params.row;
+      const likeRatio = ((likes / (likes + dislikes)) * 100).toFixed(1);
+
+      return `${likes} / ${dislikes}\n(${likeRatio}%)`;
+    },
+  }, // 110
+  { field: 'comments', headerName: 'Comments', type: 'number', flex: 2 }, // 100
+];
+
 export default function VideoDataTable(props: VideoDataTableProps) {
   const { videoData } = props;
-  const now = new Date();
   let lastUploadDate: Date | null = null;
 
+  // Add id to video data
+  const preparedVideoData = videoData.map(video => {
+    let hiatus = 0;
+    let currentUploadDate = new Date(video.publishedAt);
+
+    if (lastUploadDate !== null) {
+      hiatus = Math.floor(
+        (currentUploadDate.getTime() - lastUploadDate.getTime()) / MS_PER_DAY,
+      );
+    }
+
+    lastUploadDate = currentUploadDate;
+    return {
+      id: video.title,
+      hiatus,
+      ...video,
+    };
+  });
+
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Title</TableCell>
-          <TableCell>Views</TableCell>
-          <TableCell>Upload Date</TableCell>
-          <TableCell>Views/Day</TableCell>
-          <TableCell>Hiatus (Days)</TableCell>
-          <TableCell>Duration</TableCell>
-          <TableCell>Average View Duration</TableCell>
-          <TableCell>Likes/Dislikes</TableCell>
-          <TableCell>Comments</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {videoData.map(video => {
-          const viewDurationRatio = (
-            (video.averageViewDuration / video.duration) *
-            100
-          ).toFixed(1);
-
-          const likeRatio = (
-            (video.likes / (video.likes + video.dislikes)) *
-            100
-          ).toFixed(1);
-
-          const uploadDate = new Date(video.publishedAt);
-          const viewsPerDay = (
-            video.views /
-            ((now.getTime() - uploadDate.getTime()) / MS_PER_DAY)
-          ).toFixed(2);
-
-          const durationString = formatTime(video.duration);
-          const averageDurationString = formatTime(video.averageViewDuration);
-          const hiatus =
-            lastUploadDate !== null
-              ? (
-                  (uploadDate.getTime() - lastUploadDate.getTime()) /
-                  MS_PER_DAY
-                ).toFixed(0)
-              : 0;
-
-          lastUploadDate = uploadDate;
-
-          return (
-            <TableRow key={video.title}>
-              <TableCell>{video.title}</TableCell>
-              <TableCell>{video.views}</TableCell>
-              <TableCell>{uploadDate.toLocaleDateString()}</TableCell>
-              <TableCell>{viewsPerDay}</TableCell>
-              <TableCell>{hiatus}</TableCell>
-              <TableCell>{durationString}</TableCell>
-              <TableCell>
-                {averageDurationString} ({viewDurationRatio}%)
-              </TableCell>
-              <TableCell>
-                {video.likes} / {video.dislikes}
-                <br />({likeRatio}%)
-              </TableCell>
-              <TableCell>{video.comments}</TableCell>
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
+    <DataGrid
+      rows={preparedVideoData}
+      columns={columns}
+      initialState={{
+        pagination: {
+          paginationModel: { page: 0, pageSize: 30 },
+        },
+      }}
+    />
   );
 }
