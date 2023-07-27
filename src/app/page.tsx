@@ -12,6 +12,9 @@ const openSans = Open_Sans({
 
 export default async function Home() {
   const channelData: YoutubeData = await getChannelData();
+  const lastUpdatedString = new Date(
+    channelData.lastUpdated,
+  ).toLocaleDateString();
 
   return (
     <>
@@ -29,11 +32,16 @@ export default async function Home() {
           >
             VGM Obscura Stats
           </Typography>
+          <Typography>Last updated: {lastUpdatedString}</Typography>
         </Paper>
       </Container>
       <Container maxWidth="xl" sx={{ mt: '1rem' }}>
         <Paper elevation={3}>
-          <VideoDataTable videoData={channelData.data} />
+          {channelData.status === 'ok' ? (
+            <VideoDataTable videoData={channelData.data} />
+          ) : (
+            <Typography>Error getting video data</Typography>
+          )}
         </Paper>
       </Container>
     </>

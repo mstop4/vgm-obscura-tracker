@@ -3,6 +3,7 @@ export type YoutubeData = {
   reason?: string;
   startDate: string;
   endDate: string;
+  lastUpdated: Date;
   data: Array<VideoData>;
 };
 

@@ -15,6 +15,7 @@ export type VideoDataTableProps = {
 export default function VideoDataTable(props: VideoDataTableProps) {
   const { videoData } = props;
   const now = new Date();
+  let lastUploadDate: Date | null = null;
 
   return (
     <Table>
@@ -24,7 +25,7 @@ export default function VideoDataTable(props: VideoDataTableProps) {
           <TableCell>Views</TableCell>
           <TableCell>Upload Date</TableCell>
           <TableCell>Views/Day</TableCell>
-          {/* <TableCell>Hiatus</TableCell> */}
+          <TableCell>Hiatus (Days)</TableCell>
           <TableCell>Duration</TableCell>
           <TableCell>Average View Duration</TableCell>
           <TableCell>Likes/Dislikes</TableCell>
@@ -51,6 +52,15 @@ export default function VideoDataTable(props: VideoDataTableProps) {
 
           const durationString = formatTime(video.duration);
           const averageDurationString = formatTime(video.averageViewDuration);
+          const hiatus =
+            lastUploadDate !== null
+              ? (
+                  (uploadDate.getTime() - lastUploadDate.getTime()) /
+                  MS_PER_DAY
+                ).toFixed(0)
+              : 0;
+
+          lastUploadDate = uploadDate;
 
           return (
             <TableRow key={video.title}>
@@ -58,6 +68,7 @@ export default function VideoDataTable(props: VideoDataTableProps) {
               <TableCell>{video.views}</TableCell>
               <TableCell>{uploadDate.toLocaleDateString()}</TableCell>
               <TableCell>{viewsPerDay}</TableCell>
+              <TableCell>{hiatus}</TableCell>
               <TableCell>{durationString}</TableCell>
               <TableCell>
                 {averageDurationString} ({viewDurationRatio}%)
