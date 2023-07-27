@@ -9,6 +9,7 @@ export type YoutubeData = {
 export type VideoData = {
   title: string;
   duration: number;
+  publishedAt: string;
   views: number;
   comments: number;
   likes: number;
