@@ -17,7 +17,7 @@ export type VideoData = {
   averageViewDuration: number;
 };
 
-export async function getChannelData() {
-  const data = await fetch(`${process.env.SERVER_URL}/api/channelData`);
-  return data;
+export async function getChannelData(): Promise<YoutubeData> {
+  const res = await fetch(`${process.env.SERVER_URL}/youtube/api/channelData`);
+  return res.json();
 }
