@@ -109,7 +109,7 @@ export default function VideoDataTable(props: VideoDataTableProps) {
   const { videoData } = props;
   let lastUploadDate: Date | null = null;
 
-  // Add id to video data
+  // Add ids and hiatuses to video data
   const preparedVideoData = videoData.map(video => {
     let hiatus = 0;
     let currentUploadDate = new Date(video.publishedAt);

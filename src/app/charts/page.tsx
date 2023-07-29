@@ -1,3 +1,8 @@
+import { YoutubeData, getChannelData } from '../../../lib/dataFetch';
+import ViewsChart from '@components/ViewsChart';
+
 export default async function Charts() {
-  return <p>Charts</p>;
+  const channelData: YoutubeData = await getChannelData();
+
+  return <ViewsChart videoData={channelData.data} />;
 }
