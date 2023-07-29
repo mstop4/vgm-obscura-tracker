@@ -10,32 +10,30 @@ export default async function Home() {
   );
 
   return (
-    <>
-      <Container
-        maxWidth="xl"
-        sx={{
-          mt: '2rem',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          height: '88dvh',
-        }}
-      >
-        <Card sx={{ width: 200 }}>
-          <Typography align="center">
-            Last updated: {lastUpdatedString}
-          </Typography>
-        </Card>
+    <Container
+      maxWidth="xl"
+      sx={{
+        mt: '2rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: '88dvh',
+      }}
+    >
+      <Card sx={{ width: 200 }}>
+        <Typography align="center">
+          Last updated: {lastUpdatedString}
+        </Typography>
+      </Card>
 
-        <Paper elevation={3} sx={{ width: '100%', height: '78dvh' }}>
-          {channelData.status === 'ok' ? (
-            <VideoDataTable videoData={channelData.data} />
-          ) : (
-            <Typography>Error getting video data</Typography>
-          )}
-        </Paper>
-      </Container>
-    </>
+      <Paper elevation={3} sx={{ width: '100%', height: '78dvh' }}>
+        {channelData.status === 'ok' ? (
+          <VideoDataTable videoData={channelData.data} />
+        ) : (
+          <Typography>Error getting video data</Typography>
+        )}
+      </Paper>
+    </Container>
   );
 }
