@@ -1,12 +1,13 @@
+import dayjs from 'dayjs';
 import { Card, Container, Paper, Typography } from '@mui/material';
 import VideoDataTable from '@components/VideoDataTable';
 import { YoutubeData, getChannelData } from '../../lib/dataFetch';
 
 export default async function Home() {
   const channelData: YoutubeData = await getChannelData();
-  const lastUpdatedString = new Date(
-    channelData.lastUpdated,
-  ).toLocaleDateString();
+  const lastUpdatedString = dayjs(channelData.lastUpdated).format(
+    'MMMM D, YYYY',
+  );
 
   return (
     <>
