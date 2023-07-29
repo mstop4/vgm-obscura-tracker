@@ -7,6 +7,7 @@ import {
   GridValueGetterParams,
 } from '@mui/x-data-grid';
 import { VideoData } from '../../lib/dataFetch';
+import { calculateViewsPerDay } from '../../lib/dataUtils';
 import { MS_PER_DAY, formatTime } from '../../lib/timeUtils';
 
 export type VideoDataTableProps = {
@@ -15,8 +16,9 @@ export type VideoDataTableProps = {
 
 const now = new Date();
 
+// Columns
 const columns: GridColDef[] = [
-  { field: 'title', headerName: 'Title', flex: 6 }, // 400
+  { field: 'title', headerName: 'Title', flex: 6, minWidth: 300 },
   {
     field: 'views',
     headerName: 'Views',
@@ -24,14 +26,16 @@ const columns: GridColDef[] = [
     flex: 2,
     align: 'left',
     headerAlign: 'left',
-  }, // 100
+    minWidth: 100,
+  },
   {
     field: 'publishedAt',
     headerName: 'Upload Date',
     flex: 3,
+    minWidth: 120,
     valueFormatter: (params: GridValueFormatterParams<string>) =>
       new Date(params.value).toLocaleDateString(),
-  }, // 120
+  },
   {
     field: 'viewsPerDay',
     headerName: 'Views/Day',
@@ -39,15 +43,12 @@ const columns: GridColDef[] = [
     flex: 2,
     align: 'left',
     headerAlign: 'left',
+    minWidth: 100,
     valueGetter: (params: GridValueGetterParams) => {
       const { views, publishedAt } = params.row;
-      const uploadDate = new Date(publishedAt);
-      return (
-        views /
-        ((now.getTime() - uploadDate.getTime()) / MS_PER_DAY)
-      ).toFixed(2);
+      return calculateViewsPerDay(views, publishedAt, now).toFixed(2);
     },
-  }, // 100
+  },
   {
     field: 'hiatus',
     headerName: 'Hiatus (Days)',
@@ -55,18 +56,21 @@ const columns: GridColDef[] = [
     flex: 2,
     align: 'left',
     headerAlign: 'left',
+    minWidth: 100,
   },
   {
     field: 'duration',
     headerName: 'Duration',
     flex: 2,
+    minWidth: 100,
     valueFormatter: (params: GridValueFormatterParams<number>) =>
       formatTime(params.value),
-  }, // 100
+  },
   {
     field: 'averageViewDuration',
     headerName: 'Average View Duration',
     flex: 3,
+    minWidth: 175,
     valueGetter: (params: GridValueGetterParams) => {
       const { averageViewDuration, duration } = params.row;
       const averageDurationString = formatTime(averageViewDuration);
@@ -77,18 +81,19 @@ const columns: GridColDef[] = [
 
       return `${averageDurationString} (${viewDurationRatio}%)`;
     },
-  }, // 175
+  },
   {
     field: 'likes',
     headerName: 'Likes/Dislikes',
     flex: 3,
+    minWidth: 110,
     valueGetter: (params: GridValueGetterParams) => {
       const { likes, dislikes } = params.row;
       const likeRatio = ((likes / (likes + dislikes)) * 100).toFixed(1);
 
       return `${likes} / ${dislikes}\n(${likeRatio}%)`;
     },
-  }, // 110
+  },
   {
     field: 'comments',
     headerName: 'Comments',
@@ -96,7 +101,8 @@ const columns: GridColDef[] = [
     flex: 2,
     align: 'left',
     headerAlign: 'left',
-  }, // 100
+    minWidth: 100,
+  },
 ];
 
 export default function VideoDataTable(props: VideoDataTableProps) {
@@ -128,7 +134,7 @@ export default function VideoDataTable(props: VideoDataTableProps) {
       columns={columns}
       initialState={{
         pagination: {
-          paginationModel: { page: 0, pageSize: 50 },
+          paginationModel: { page: 0, pageSize: 25 },
         },
       }}
     />
