@@ -1,7 +1,15 @@
 import type { Metadata } from 'next';
+import { AppBar, Typography } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Open_Sans } from 'next/font/google';
 import theme from '@/theme';
+
+const openSans = Open_Sans({
+  weight: ['800'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'VGM Obscura Dashboard',
@@ -18,6 +26,19 @@ export default function RootLayout({
       <ThemeProvider theme={theme}>
         <body>
           <CssBaseline />
+          <AppBar position="static">
+            <Typography
+              variant="h5"
+              component="h1"
+              sx={{
+                fontFamily: openSans.style.fontFamily,
+                fontWeight: 800,
+                p: '1rem',
+              }}
+            >
+              VGM Obscura Stats
+            </Typography>
+          </AppBar>
           {children}
         </body>
       </ThemeProvider>

@@ -1,13 +1,6 @@
-import { AppBar, Card, Container, Paper, Typography } from '@mui/material';
+import { Card, Container, Paper, Typography } from '@mui/material';
 import VideoDataTable from '@components/VideoDataTable';
 import { YoutubeData, getChannelData } from '../../lib/dataFetch';
-import { Open_Sans } from 'next/font/google';
-
-const openSans = Open_Sans({
-  weight: ['800'],
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 export default async function Home() {
   const channelData: YoutubeData = await getChannelData();
@@ -17,19 +10,6 @@ export default async function Home() {
 
   return (
     <>
-      <AppBar position="static">
-        <Typography
-          variant="h5"
-          component="h1"
-          sx={{
-            fontFamily: openSans.style.fontFamily,
-            fontWeight: 800,
-            p: '1rem',
-          }}
-        >
-          VGM Obscura Stats
-        </Typography>
-      </AppBar>
       <Container
         maxWidth="xl"
         sx={{
