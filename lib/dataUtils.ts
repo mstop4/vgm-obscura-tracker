@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { VideoData } from './dataFetch';
 
 export type ScatterChartDataPoint = {
+  id: string;
   x: Date;
   y: number;
 };
@@ -19,6 +20,7 @@ export function prepareViewsChartData(
   videoData: Array<VideoData>,
 ): Array<ScatterChartDataPoint> {
   return videoData.map(video => ({
+    id: video.title,
     x: new Date(video.publishedAt),
     y: video.views,
   }));

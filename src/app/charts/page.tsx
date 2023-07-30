@@ -17,7 +17,7 @@ export default async function Charts() {
         height: '88dvh',
       }}
     >
-      <Paper elevation={3} sx={{ width: '100%', height: '78dvh' }}>
+      <Paper elevation={3} sx={{ width: '100%' }}>
         {channelData.status === 'ok' ? (
           <ViewsChart videoData={channelData.data} />
         ) : (
