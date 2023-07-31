@@ -7,7 +7,6 @@ import {
   PointElement,
   LineElement,
   Tooltip,
-  Legend,
 } from 'chart.js';
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
 import { Scatter } from 'react-chartjs-2';
@@ -26,7 +25,6 @@ ChartJS.register(
   PointElement,
   LineElement,
   Tooltip,
-  Legend,
 );
 
 export default function ViewsChart(props: ViewsChartProps) {

@@ -12,12 +12,6 @@ export const options = {
     },
   },
   plugins: {
-    legend: {
-      display: false,
-      labels: {
-        color: theme.palette.text.primary,
-      },
-    },
     title: {
       color: theme.palette.text.primary,
       display: true,
@@ -25,30 +19,14 @@ export const options = {
         family: 'Roboto',
         size: 32,
       },
-      text: 'Views',
-    },
-    tooltip: {
-      displayColors: false,
-      callbacks: {
-        // @ts-ignore
-        label: context => {
-          const data = context.dataset.data[context.dataIndex];
-          return `${data.id}`;
-        },
-        // @ts-ignore
-        afterLabel: context => {
-          const data = context.dataset.data[context.dataIndex];
-          return `${data?.y} views`;
-        },
-      },
+      text: 'Views/Day',
     },
   },
   scales: {
     x: {
-      type: 'time' as const, // https://github.com/reactchartjs/react-chartjs-2/issues/1009
       title: {
-        display: true,
-        text: 'Date Uploaded',
+        display: false,
+        text: 'Videos',
         color: theme.palette.text.primary,
       },
       border: {
@@ -58,12 +36,12 @@ export const options = {
       grid: {
         color: 'rgba(255, 255, 255, 0.25)',
       },
-      ticks: { color: theme.palette.text.primary },
+      ticks: { display: false, color: theme.palette.text.primary },
     },
     y: {
       title: {
         display: false,
-        text: 'Views',
+        text: 'Views/Day',
         color: theme.palette.text.primary,
       },
       border: {
