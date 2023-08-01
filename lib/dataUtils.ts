@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import { VideoData } from './dataFetch';
 
 export type ScatterChartDataPoint = {
@@ -11,6 +12,19 @@ export type BarChartDataPoint = {
   x: string;
   y: number;
 };
+
+export function humanizeChannelAge(ageDuration: duration.Duration) {
+  const years = ageDuration.years();
+  const months = ageDuration.months();
+  const days = ageDuration.days();
+  let finalString = '';
+
+  if (years > 0) finalString += `${years} year${years > 1 ? 's' : ''}`;
+  if (months > 0) finalString += `, ${months} month${months > 1 ? 's' : ''}`;
+  if (days > 0) finalString += `, ${days} day${days > 1 ? 's' : ''}`;
+
+  return finalString;
+}
 
 export function calculateViewsPerDay(
   views: number,

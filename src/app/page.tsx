@@ -1,7 +1,13 @@
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { Card, Container, Paper, Typography } from '@mui/material';
 import VideoDataTable from '@components/VideoDataTable';
 import { YoutubeData, getChannelData } from '../../lib/dataFetch';
+import { humanizeChannelAge } from '../../lib/dataUtils';
+
+dayjs.extend(duration);
+dayjs.extend(relativeTime);
 
 export default async function Home() {
   const channelData: YoutubeData = await getChannelData();
@@ -15,7 +21,9 @@ export default async function Home() {
 
   const firstVideoDate = dayjs(channelData.data[0].publishedAt);
   const channelAgeDays = dayjs().diff(firstVideoDate, 'day');
-  const channelAge;
+  const channelAgeHuman = humanizeChannelAge(
+    dayjs.duration(channelAgeDays, 'day'),
+  );
   const totalViewsPerDay = (totalViews / channelAgeDays).toFixed(2);
 
   return (
@@ -41,6 +49,11 @@ export default async function Home() {
         <Card sx={{ minWidth: 200 }}>
           <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
             Last updated: {lastUpdatedString}
+          </Typography>
+        </Card>
+        <Card sx={{ minWidth: 200 }}>
+          <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
+            Channel Age: {channelAgeHuman}
           </Typography>
         </Card>
         <Card sx={{ minWidth: 200 }}>
