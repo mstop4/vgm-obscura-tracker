@@ -2,6 +2,7 @@ import { Container, Card, Paper, Typography } from '@mui/material';
 import { YoutubeData, getChannelData } from '../../../lib/dataFetch';
 import ViewsChart from '@components/ViewsChart';
 import ViewsPerDayChart from '@components/ViewsPerDayChart';
+import AvgViewDurationChart from '@components/AvgViewDurationChart';
 
 export default async function Charts() {
   const channelData: YoutubeData = await getChannelData();
@@ -32,6 +33,16 @@ export default async function Charts() {
       >
         {channelData.status === 'ok' ? (
           <ViewsPerDayChart videoData={channelData.data} />
+        ) : (
+          <Typography>Error getting video data</Typography>
+        )}
+      </Card>
+
+      <Card
+        sx={{ m: '1rem', width: '64dvw', height: '36dvw', minHeight: '400px' }}
+      >
+        {channelData.status === 'ok' ? (
+          <AvgViewDurationChart videoData={channelData.data} />
         ) : (
           <Typography>Error getting video data</Typography>
         )}

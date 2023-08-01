@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import { VideoData } from './dataFetch';
 
-export type ViewsChartDataPoint = {
+export type ScatterChartDataPoint = {
   id: string;
   x: Date;
   y: number;
 };
 
-export type ViewsPerDayChartDataPoint = {
+export type BarChartDataPoint = {
   x: string;
   y: number;
 };
@@ -23,7 +23,7 @@ export function calculateViewsPerDay(
 
 export function prepareViewsPerDayData(
   videoData: Array<VideoData>,
-): Array<ViewsPerDayChartDataPoint> {
+): Array<BarChartDataPoint> {
   const now = dayjs();
 
   return videoData.map(video => {
@@ -35,9 +35,21 @@ export function prepareViewsPerDayData(
   });
 }
 
+export function prepareAvgViewDurationData(
+  videoData: Array<VideoData>,
+): Array<BarChartDataPoint> {
+  return videoData.map(video => {
+    const { title, averageViewDuration, duration } = video;
+    return {
+      x: title,
+      y: (averageViewDuration / duration) * 100,
+    };
+  });
+}
+
 export function prepareViewsChartData(
   videoData: Array<VideoData>,
-): Array<ViewsChartDataPoint> {
+): Array<ScatterChartDataPoint> {
   return videoData.map(video => ({
     id: video.title,
     x: new Date(video.publishedAt),
