@@ -8,6 +8,15 @@ export default async function Home() {
   const lastUpdatedString = dayjs(channelData.lastUpdated).format(
     'MMMM D, YYYY',
   );
+  const totalViews = channelData.data.reduce(
+    (total, video) => total + video.views,
+    0,
+  );
+
+  const firstVideoDate = dayjs(channelData.data[0].publishedAt);
+  const channelAgeDays = dayjs().diff(firstVideoDate, 'day');
+  const channelAge;
+  const totalViewsPerDay = (totalViews / channelAgeDays).toFixed(2);
 
   return (
     <Container
@@ -21,11 +30,30 @@ export default async function Home() {
         height: '88dvh',
       }}
     >
-      <Card sx={{ width: 200 }}>
-        <Typography align="center">
-          Last updated: {lastUpdatedString}
-        </Typography>
-      </Card>
+      <Container
+        disableGutters
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+        }}
+      >
+        <Card sx={{ minWidth: 200 }}>
+          <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
+            Last updated: {lastUpdatedString}
+          </Typography>
+        </Card>
+        <Card sx={{ minWidth: 200 }}>
+          <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
+            Total Views: {totalViews}
+          </Typography>
+        </Card>
+        <Card sx={{ minWidth: 200 }}>
+          <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
+            Total Views/Day: {totalViewsPerDay}
+          </Typography>
+        </Card>
+      </Container>
 
       <Paper elevation={3} sx={{ width: '100%', height: '78dvh' }}>
         {channelData.status === 'ok' ? (
