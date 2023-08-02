@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { Card, Container, Paper, Typography } from '@mui/material';
+import { Card, Container, Box, Paper, Typography } from '@mui/material';
 import VideoDataTable from '@components/VideoDataTable';
 import { YoutubeData, getChannelData } from '../../lib/dataFetch';
 import { humanizeChannelAge } from '../../lib/dataUtils';
@@ -48,22 +48,34 @@ export default async function Home() {
       >
         <Card sx={{ minWidth: 200 }}>
           <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
-            Last updated: {lastUpdatedString}
+            <Box component="span" fontWeight="fontWeightBold">
+              Last updated:&nbsp;
+            </Box>
+            {lastUpdatedString}
           </Typography>
         </Card>
         <Card sx={{ minWidth: 200 }}>
           <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
-            Channel Age: {channelAgeHuman}
+            <Box component="span" fontWeight="fontWeightBold">
+              Channel Age:&nbsp;
+            </Box>
+            {channelAgeHuman}
           </Typography>
         </Card>
         <Card sx={{ minWidth: 200 }}>
           <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
-            Total Views: {totalViews}
+            <Box component="span" fontWeight="fontWeightBold">
+              Total Views:&nbsp;
+            </Box>
+            {totalViews}
           </Typography>
         </Card>
         <Card sx={{ minWidth: 200 }}>
           <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
-            Total Views/Day: {totalViewsPerDay}
+            <Box component="span" fontWeight="fontWeightBold">
+              Total Views/Day:&nbsp;
+            </Box>
+            {totalViewsPerDay}
           </Typography>
         </Card>
       </Container>
