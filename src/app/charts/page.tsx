@@ -19,7 +19,7 @@ export default async function Charts() {
       }}
     >
       <Card
-        sx={{ m: '1rem', width: '64dvw', height: '36dvw', minHeight: '400px' }}
+        sx={{ m: '1rem', width: '80dvw', height: '45dvw', minHeight: '400px' }}
       >
         {channelData.status === 'ok' ? (
           <ViewsChart videoData={channelData.data} />
@@ -29,7 +29,7 @@ export default async function Charts() {
       </Card>
 
       <Card
-        sx={{ m: '1rem', width: '64dvw', height: '36dvw', minHeight: '400px' }}
+        sx={{ m: '1rem', width: '80dvw', height: '45dvw', minHeight: '400px' }}
       >
         {channelData.status === 'ok' ? (
           <ViewsPerDayChart videoData={channelData.data} />
@@ -39,7 +39,7 @@ export default async function Charts() {
       </Card>
 
       <Card
-        sx={{ m: '1rem', width: '64dvw', height: '36dvw', minHeight: '400px' }}
+        sx={{ m: '1rem', width: '80dvw', height: '45dvw', minHeight: '400px' }}
       >
         {channelData.status === 'ok' ? (
           <AvgViewDurationChart videoData={channelData.data} />
