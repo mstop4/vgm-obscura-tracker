@@ -1,5 +1,7 @@
 'use client';
 
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import {
   DataGrid,
   GridColDef,
@@ -8,13 +10,13 @@ import {
 } from '@mui/x-data-grid';
 import { VideoData } from '../../lib/dataFetch';
 import { calculateViewsPerDay } from '../../lib/dataUtils';
-import { MS_PER_DAY, formatTime } from '../../lib/timeUtils';
 
 export type VideoDataTableProps = {
   videoData: Array<VideoData>;
 };
 
-const now = new Date();
+dayjs.extend(duration);
+const now = dayjs();
 
 // Columns
 const columns: GridColDef[] = [
@@ -34,7 +36,7 @@ const columns: GridColDef[] = [
     flex: 3,
     minWidth: 120,
     valueFormatter: (params: GridValueFormatterParams<string>) =>
-      new Date(params.value).toLocaleDateString(),
+      dayjs(params.value).format('M/D/YYYY'),
   },
   {
     field: 'viewsPerDay',
@@ -64,7 +66,7 @@ const columns: GridColDef[] = [
     flex: 2,
     minWidth: 100,
     valueFormatter: (params: GridValueFormatterParams<number>) =>
-      formatTime(params.value),
+      dayjs.duration(params.value, 'seconds').format('m:ss'),
   },
   {
     field: 'averageViewDuration',
@@ -73,7 +75,9 @@ const columns: GridColDef[] = [
     minWidth: 175,
     valueGetter: (params: GridValueGetterParams) => {
       const { averageViewDuration, duration } = params.row;
-      const averageDurationString = formatTime(averageViewDuration);
+      const averageDurationString = dayjs
+        .duration(params.value, 'seconds')
+        .format('m:ss');
       const viewDurationRatio = (
         (averageViewDuration / duration) *
         100
@@ -107,17 +111,15 @@ const columns: GridColDef[] = [
 
 export default function VideoDataTable(props: VideoDataTableProps) {
   const { videoData } = props;
-  let lastUploadDate: Date | null = null;
+  let lastUploadDate: dayjs.Dayjs | null = null;
 
-  // Add id to video data
+  // Add ids and hiatuses to video data
   const preparedVideoData = videoData.map(video => {
     let hiatus = 0;
-    let currentUploadDate = new Date(video.publishedAt);
+    let currentUploadDate = dayjs(video.publishedAt);
 
     if (lastUploadDate !== null) {
-      hiatus = Math.floor(
-        (currentUploadDate.getTime() - lastUploadDate.getTime()) / MS_PER_DAY,
-      );
+      hiatus = currentUploadDate.diff(lastUploadDate, 'day');
     }
 
     lastUploadDate = currentUploadDate;
