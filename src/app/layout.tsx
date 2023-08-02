@@ -1,9 +1,17 @@
 import type { Metadata } from 'next';
-import { AppBar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Container,
+  Button,
+  Box,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Open_Sans } from 'next/font/google';
 import theme from '@/theme';
+import { NextLinkComposed } from '@components/LinkAdapter';
 
 const openSans = Open_Sans({
   weight: ['800'],
@@ -27,17 +35,29 @@ export default function RootLayout({
         <body>
           <CssBaseline />
           <AppBar position="static">
-            <Typography
-              variant="h5"
-              component="h1"
-              sx={{
-                fontFamily: openSans.style.fontFamily,
-                fontWeight: 800,
-                p: '1rem',
-              }}
-            >
-              VGM Obscura Stats
-            </Typography>
+            <Container maxWidth="xl" disableGutters>
+              <Toolbar disableGutters>
+                <Typography
+                  variant="h5"
+                  component="h1"
+                  sx={{
+                    fontFamily: openSans.style.fontFamily,
+                    fontWeight: 800,
+                    p: '1rem',
+                  }}
+                >
+                  VGM Obscura Stats
+                </Typography>
+                <Box sx={{ ml: '1rem' }}>
+                  <Button component={NextLinkComposed} to="/">
+                    Overview
+                  </Button>
+                  <Button component={NextLinkComposed} to="/charts">
+                    Charts
+                  </Button>
+                </Box>
+              </Toolbar>
+            </Container>
           </AppBar>
           {children}
         </body>
