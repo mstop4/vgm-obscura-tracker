@@ -8,6 +8,7 @@ import {
   BarElement,
   Tooltip,
 } from 'chart.js';
+import { blue } from '@mui/material/colors';
 import { VideoData } from '../../lib/dataFetch';
 import { prepareAvgViewDurationData } from '../../lib/dataUtils';
 import { options } from './AvgViewDurationChart.config';
@@ -25,8 +26,8 @@ export default function AvgViewDurationChart(props: AvgViewDurationChartProps) {
       {
         label: 'Avg. View Duration',
         data: prepareAvgViewDurationData(videoData),
-        backgroundColor: 'rgba(255, 128, 128, 0.75)',
-        borderColor: 'rgba(128, 64, 64, 0.9)',
+        backgroundColor: blue[300],
+        borderColor: blue[900],
         borderWidth: 1.5,
         hoverBorderWidth: 2,
       },
