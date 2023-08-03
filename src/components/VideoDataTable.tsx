@@ -5,7 +5,6 @@ import duration from 'dayjs/plugin/duration';
 import {
   DataGrid,
   GridColDef,
-  GridComparatorFn,
   GridValueFormatterParams,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
@@ -19,6 +18,11 @@ export type VideoDataTableProps = {
 type LikesDislikes = {
   likes: number;
   dislikes: number;
+};
+
+type Durations = {
+  averageViewDuration: number;
+  totalDuration: number;
 };
 
 dayjs.extend(duration);
@@ -79,18 +83,25 @@ const columns: GridColDef[] = [
     headerName: 'Average View Duration',
     flex: 3,
     minWidth: 175,
-    valueGetter: (params: GridValueGetterParams) => {
-      const { averageViewDuration, duration } = params.row;
+    valueGetter: (params: GridValueGetterParams): Durations => ({
+      averageViewDuration: params.row.averageViewDuration,
+      totalDuration: params.row.duration,
+    }),
+    valueFormatter: (params: GridValueFormatterParams<Durations>) => {
+      const { averageViewDuration, totalDuration } = params.value;
       const averageDurationString = dayjs
-        .duration(params.value, 'seconds')
+        .duration(averageViewDuration, 'seconds')
         .format('m:ss');
       const viewDurationRatio = (
-        (averageViewDuration / duration) *
+        (averageViewDuration / totalDuration) *
         100
       ).toFixed(1);
 
       return `${averageDurationString} (${viewDurationRatio}%)`;
     },
+    sortComparator: (v1: Durations, v2: Durations) =>
+      v1.averageViewDuration / v1.totalDuration -
+      v2.averageViewDuration / v2.totalDuration,
   },
   {
     field: 'likes',
@@ -107,9 +118,8 @@ const columns: GridColDef[] = [
 
       return `${likes} / ${dislikes}\n(${likeRatio}%)`;
     },
-    sortComparator: (v1: LikesDislikes, v2: LikesDislikes) => {
-      return v1.likes - v2.likes || v2.dislikes - v1.dislikes;
-    },
+    sortComparator: (v1: LikesDislikes, v2: LikesDislikes) =>
+      v1.likes - v2.likes || v2.dislikes - v1.dislikes,
   },
   {
     field: 'comments',
