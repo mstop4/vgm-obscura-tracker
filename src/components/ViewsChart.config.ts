@@ -1,4 +1,6 @@
+import { TooltipItem } from 'chart.js';
 import theme from '@/theme';
+import { ScatterChartDataPoint } from '../../lib/dataUtils';
 
 export const options = {
   responsive: true,
@@ -30,15 +32,13 @@ export const options = {
     tooltip: {
       displayColors: false,
       callbacks: {
-        // @ts-ignore
-        label: context => {
-          const data = context.dataset.data[context.dataIndex];
+        title: (context: TooltipItem<'scatter'>[]) => {
+          const data = context[0].raw as ScatterChartDataPoint;
           return `${data.id}`;
         },
-        // @ts-ignore
-        afterLabel: context => {
-          const data = context.dataset.data[context.dataIndex];
-          return `${data?.y} views`;
+        label: (context: TooltipItem<'scatter'>) => {
+          const data = context.raw as ScatterChartDataPoint;
+          return `${data.y} views`;
         },
       },
     },
