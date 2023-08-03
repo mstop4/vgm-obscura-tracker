@@ -7,6 +7,8 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import TableViewIcon from '@mui/icons-material/TableView';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Open_Sans } from 'next/font/google';
@@ -49,11 +51,22 @@ export default function RootLayout({
                   VGM Obscura Stats
                 </Typography>
                 <Box sx={{ ml: '1rem' }}>
-                  <Button component={NextLinkComposed} to="/">
+                  <Button
+                    component={NextLinkComposed}
+                    variant="contained"
+                    to="/"
+                    sx={{ m: '0.5rem' }}
+                  >
+                    <TableViewIcon sx={{ mr: '0.5rem', my: '0.25rem' }} />
                     Overview
                   </Button>
-                  <Button component={NextLinkComposed} to="/charts">
-                    Charts
+                  <Button
+                    component={NextLinkComposed}
+                    variant="contained"
+                    to="/charts"
+                    sx={{ m: '0.5rem' }}
+                  >
+                    <BarChartIcon sx={{ mr: '0.5rem', my: '0.25rem' }} /> Charts
                   </Button>
                 </Box>
               </Toolbar>

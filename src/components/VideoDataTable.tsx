@@ -138,6 +138,9 @@ export default function VideoDataTable(props: VideoDataTableProps) {
         pagination: {
           paginationModel: { page: 0, pageSize: 25 },
         },
+        sorting: {
+          sortModel: [{ field: 'publishedAt', sort: 'desc' }],
+        },
       }}
     />
   );

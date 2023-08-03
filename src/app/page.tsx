@@ -67,7 +67,7 @@ export default async function Home() {
             <Box component="span" fontWeight="fontWeightBold">
               Total Views:&nbsp;
             </Box>
-            {totalViews}
+            {totalViews.toLocaleString()}
           </Typography>
         </Card>
         <Card sx={{ minWidth: 200 }}>
@@ -75,7 +75,7 @@ export default async function Home() {
             <Box component="span" fontWeight="fontWeightBold">
               Total Views/Day:&nbsp;
             </Box>
-            {totalViewsPerDay}
+            {totalViewsPerDay.toLocaleString()}
           </Typography>
         </Card>
       </Container>
