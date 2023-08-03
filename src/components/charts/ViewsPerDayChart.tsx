@@ -9,8 +9,8 @@ import {
   Tooltip,
 } from 'chart.js';
 import { blue } from '@mui/material/colors';
-import { VideoData } from '../../lib/dataFetch';
-import { prepareViewsPerDayData } from '../../lib/dataUtils';
+import { VideoData } from '../../../lib/dataFetch';
+import { prepareViewsPerDayData } from '../../../lib/dataUtils';
 import { options } from './ViewsPerDayChart.config';
 
 export type ViewsPerDayChartProps = {

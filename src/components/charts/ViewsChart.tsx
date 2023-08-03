@@ -11,8 +11,8 @@ import {
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
 import { Scatter } from 'react-chartjs-2';
 import { blue } from '@mui/material/colors';
-import { VideoData } from '../../lib/dataFetch';
-import { prepareViewsChartData } from '../../lib/dataUtils';
+import { VideoData } from '../../../lib/dataFetch';
+import { prepareViewsChartData } from '../../../lib/dataUtils';
 import { options } from './ViewsChart.config';
 
 export type ViewsChartProps = {

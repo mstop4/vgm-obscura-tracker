@@ -1,6 +1,6 @@
 import { TooltipItem } from 'chart.js';
 import theme from '@/theme';
-import { BarChartDataPoint } from '../../lib/dataUtils';
+import { BarChartDataPoint } from '../../../lib/dataUtils';
 
 export const options = {
   responsive: true,
@@ -21,14 +21,14 @@ export const options = {
         family: 'Roboto',
         size: 32,
       },
-      text: 'Average View Duration %',
+      text: 'Views/Day',
     },
     tooltip: {
       displayColors: false,
       callbacks: {
         label: (context: TooltipItem<'bar'>) => {
           const data = context.raw as BarChartDataPoint;
-          return `${data.y.toFixed(2)}% watched`;
+          return `${data.y.toFixed(2)} views/day`;
         },
       },
     },
@@ -52,7 +52,7 @@ export const options = {
     y: {
       title: {
         display: false,
-        text: 'Avg. View Duration',
+        text: 'Views/Day',
         color: theme.palette.text.primary,
       },
       border: {
@@ -62,12 +62,7 @@ export const options = {
       grid: {
         color: 'rgba(255, 255, 255, 0.25)',
       },
-      ticks: {
-        color: theme.palette.text.primary,
-        min: 0,
-        max: 100,
-        callback: (value: string | number) => value + '%',
-      },
+      ticks: { color: theme.palette.text.primary },
     },
   },
 };

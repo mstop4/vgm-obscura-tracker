@@ -57,7 +57,7 @@ export default async function Home() {
         <Card sx={{ minWidth: 200 }}>
           <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
             <Box component="span" fontWeight="fontWeightBold">
-              Channel Age:&nbsp;
+              First Video Age:&nbsp;
             </Box>
             {channelAgeHuman}
           </Typography>

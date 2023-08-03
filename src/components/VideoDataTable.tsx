@@ -5,6 +5,7 @@ import duration from 'dayjs/plugin/duration';
 import {
   DataGrid,
   GridColDef,
+  GridComparatorFn,
   GridValueFormatterParams,
   GridValueGetterParams,
 } from '@mui/x-data-grid';
@@ -13,6 +14,11 @@ import { calculateViewsPerDay } from '../../lib/dataUtils';
 
 export type VideoDataTableProps = {
   videoData: Array<VideoData>;
+};
+
+type LikesDislikes = {
+  likes: number;
+  dislikes: number;
 };
 
 dayjs.extend(duration);
@@ -91,11 +97,18 @@ const columns: GridColDef[] = [
     headerName: 'Likes/Dislikes',
     flex: 3,
     minWidth: 110,
-    valueGetter: (params: GridValueGetterParams) => {
-      const { likes, dislikes } = params.row;
+    valueGetter: (params: GridValueGetterParams): LikesDislikes => ({
+      likes: params.row.likes,
+      dislikes: params.row.dislikes,
+    }),
+    valueFormatter: (params: GridValueFormatterParams<LikesDislikes>) => {
+      const { likes, dislikes } = params.value;
       const likeRatio = ((likes / (likes + dislikes)) * 100).toFixed(1);
 
       return `${likes} / ${dislikes}\n(${likeRatio}%)`;
+    },
+    sortComparator: (v1: LikesDislikes, v2: LikesDislikes) => {
+      return v1.likes - v2.likes || v2.dislikes - v1.dislikes;
     },
   },
   {

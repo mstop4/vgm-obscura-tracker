@@ -1,6 +1,6 @@
 import { TooltipItem } from 'chart.js';
 import theme from '@/theme';
-import { BarChartDataPoint } from '../../lib/dataUtils';
+import { ScatterChartDataPoint } from '../../../lib/dataUtils';
 
 export const options = {
   responsive: true,
@@ -14,6 +14,12 @@ export const options = {
     },
   },
   plugins: {
+    legend: {
+      display: false,
+      labels: {
+        color: theme.palette.text.primary,
+      },
+    },
     title: {
       color: theme.palette.text.primary,
       display: true,
@@ -21,23 +27,28 @@ export const options = {
         family: 'Roboto',
         size: 32,
       },
-      text: 'Views/Day',
+      text: 'Views',
     },
     tooltip: {
       displayColors: false,
       callbacks: {
-        label: (context: TooltipItem<'bar'>) => {
-          const data = context.raw as BarChartDataPoint;
-          return `${data.y.toFixed(2)} views/day`;
+        title: (context: TooltipItem<'scatter'>[]) => {
+          const data = context[0].raw as ScatterChartDataPoint;
+          return `${data.id}`;
+        },
+        label: (context: TooltipItem<'scatter'>) => {
+          const data = context.raw as ScatterChartDataPoint;
+          return `${data.y} views`;
         },
       },
     },
   },
   scales: {
     x: {
+      type: 'time' as const, // https://github.com/reactchartjs/react-chartjs-2/issues/1009
       title: {
-        display: false,
-        text: 'Videos',
+        display: true,
+        text: 'Date Uploaded',
         color: theme.palette.text.primary,
       },
       border: {
@@ -47,12 +58,12 @@ export const options = {
       grid: {
         color: 'rgba(255, 255, 255, 0.25)',
       },
-      ticks: { display: false, color: theme.palette.text.primary },
+      ticks: { color: theme.palette.text.primary },
     },
     y: {
       title: {
         display: false,
-        text: 'Views/Day',
+        text: 'Views',
         color: theme.palette.text.primary,
       },
       border: {

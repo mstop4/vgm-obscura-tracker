@@ -1,6 +1,6 @@
 import { TooltipItem } from 'chart.js';
 import theme from '@/theme';
-import { ScatterChartDataPoint } from '../../lib/dataUtils';
+import { BarChartDataPoint } from '../../../lib/dataUtils';
 
 export const options = {
   responsive: true,
@@ -14,12 +14,6 @@ export const options = {
     },
   },
   plugins: {
-    legend: {
-      display: false,
-      labels: {
-        color: theme.palette.text.primary,
-      },
-    },
     title: {
       color: theme.palette.text.primary,
       display: true,
@@ -27,28 +21,23 @@ export const options = {
         family: 'Roboto',
         size: 32,
       },
-      text: 'Views',
+      text: 'Average View Duration %',
     },
     tooltip: {
       displayColors: false,
       callbacks: {
-        title: (context: TooltipItem<'scatter'>[]) => {
-          const data = context[0].raw as ScatterChartDataPoint;
-          return `${data.id}`;
-        },
-        label: (context: TooltipItem<'scatter'>) => {
-          const data = context.raw as ScatterChartDataPoint;
-          return `${data.y} views`;
+        label: (context: TooltipItem<'bar'>) => {
+          const data = context.raw as BarChartDataPoint;
+          return `${data.y.toFixed(2)}% watched`;
         },
       },
     },
   },
   scales: {
     x: {
-      type: 'time' as const, // https://github.com/reactchartjs/react-chartjs-2/issues/1009
       title: {
-        display: true,
-        text: 'Date Uploaded',
+        display: false,
+        text: 'Videos',
         color: theme.palette.text.primary,
       },
       border: {
@@ -58,12 +47,12 @@ export const options = {
       grid: {
         color: 'rgba(255, 255, 255, 0.25)',
       },
-      ticks: { color: theme.palette.text.primary },
+      ticks: { display: false, color: theme.palette.text.primary },
     },
     y: {
       title: {
         display: false,
-        text: 'Views',
+        text: 'Avg. View Duration',
         color: theme.palette.text.primary,
       },
       border: {
@@ -73,7 +62,12 @@ export const options = {
       grid: {
         color: 'rgba(255, 255, 255, 0.25)',
       },
-      ticks: { color: theme.palette.text.primary },
+      ticks: {
+        color: theme.palette.text.primary,
+        min: 0,
+        max: 100,
+        callback: (value: string | number) => value + '%',
+      },
     },
   },
 };

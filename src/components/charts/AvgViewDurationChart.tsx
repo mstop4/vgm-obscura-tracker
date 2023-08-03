@@ -9,8 +9,8 @@ import {
   Tooltip,
 } from 'chart.js';
 import { blue } from '@mui/material/colors';
-import { VideoData } from '../../lib/dataFetch';
-import { prepareAvgViewDurationData } from '../../lib/dataUtils';
+import { VideoData } from '../../../lib/dataFetch';
+import { prepareAvgViewDurationData } from '../../../lib/dataUtils';
 import { options } from './AvgViewDurationChart.config';
 
 export type AvgViewDurationChartProps = {

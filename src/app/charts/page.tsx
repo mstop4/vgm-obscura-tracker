@@ -1,8 +1,8 @@
 import { Container, Card, Paper, Typography } from '@mui/material';
 import { YoutubeData, getChannelData } from '../../../lib/dataFetch';
-import ViewsChart from '@components/ViewsChart';
-import ViewsPerDayChart from '@components/ViewsPerDayChart';
-import AvgViewDurationChart from '@components/AvgViewDurationChart';
+import ViewsChart from '@components/charts/ViewsChart';
+import ViewsPerDayChart from '@components/charts/ViewsPerDayChart';
+import AvgViewDurationChart from '@components/charts/AvgViewDurationChart';
 
 export default async function Charts() {
   const channelData: YoutubeData = await getChannelData();
