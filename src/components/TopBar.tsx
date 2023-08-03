@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AppBar,
   Container,
@@ -8,6 +10,8 @@ import {
 } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import TableViewIcon from '@mui/icons-material/TableView';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import SsidChartIcon from '@mui/icons-material/SsidChart';
 import { Open_Sans } from 'next/font/google';
 import { NextLinkComposed } from '@components/LinkAdapter';
 
@@ -49,7 +53,27 @@ export function TopBar() {
               to="/charts"
               sx={{ m: '0.5rem' }}
             >
-              <BarChartIcon sx={{ mr: '0.5rem', my: '0.25rem' }} /> Charts
+              <SsidChartIcon sx={{ mr: '0.5rem', my: '0.25rem' }} /> Charts
+            </Button>
+            <Button
+              component={NextLinkComposed}
+              variant="contained"
+              to="https://www.youtube.com/@vgmobscura"
+              rel="noopener noreferrer"
+              target="_blank"
+              sx={{ m: '0.5rem' }}
+            >
+              <YouTubeIcon sx={{ mr: '0.5rem', my: '0.25rem' }} /> Channel
+            </Button>
+            <Button
+              component={NextLinkComposed}
+              variant="contained"
+              to="https://socialblade.com/youtube/channel/UCr_I496oBo9qTOlq8M3IEow"
+              rel="noopener noreferrer"
+              target="_blank"
+              sx={{ m: '0.5rem' }}
+            >
+              <BarChartIcon sx={{ mr: '0.5rem', my: '0.25rem' }} /> Social Blade
             </Button>
           </Box>
         </Toolbar>
