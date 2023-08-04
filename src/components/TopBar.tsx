@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {
   AppBar,
   Container,
@@ -14,6 +15,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import SsidChartIcon from '@mui/icons-material/SsidChart';
 import { Open_Sans } from 'next/font/google';
 import { NextLinkComposed } from '@components/LinkAdapter';
+import logo from '@public/icon.svg';
 
 const openSans = Open_Sans({
   weight: ['800'],
@@ -21,11 +23,19 @@ const openSans = Open_Sans({
   display: 'swap',
 });
 
+const logoSize = 50;
+
 export function TopBar() {
   return (
     <AppBar position="static">
       <Container maxWidth="xl" disableGutters>
         <Toolbar disableGutters>
+          <Image
+            src={logo}
+            alt="Logo"
+            width={logoSize}
+            style={{ borderRadius: logoSize / 2 }}
+          />
           <Typography
             variant="h5"
             component="h1"
