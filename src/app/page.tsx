@@ -44,6 +44,7 @@ export default async function Home() {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-around',
+          flexWrap: 'wrap',
         }}
       >
         <Card sx={{ minWidth: 200 }}>
