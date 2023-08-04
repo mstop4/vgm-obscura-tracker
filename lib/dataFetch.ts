@@ -20,6 +20,23 @@ export type VideoData = {
 };
 
 export async function getChannelData(): Promise<YoutubeData> {
-  const res = await fetch(`${process.env.SERVER_URL}/youtube/api/channelData`);
-  return res.json();
+  try {
+    const res = await fetch(
+      `${process.env.SERVER_URL}/youtube/api/channelData`,
+    );
+    return res.json();
+  } catch (e) {
+    let message = 'Unknown error';
+    if (e instanceof Error) message = e.message;
+    console.log(message);
+    console.log(`${process.env.SERVER_URL}/youtube/api/channelData`);
+
+    return {
+      status: 'error',
+      startDate: '',
+      endDate: '',
+      lastUpdated: new Date(),
+      data: [],
+    };
+  }
 }
