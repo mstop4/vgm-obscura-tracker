@@ -8,8 +8,9 @@ import {
   BarElement,
   Tooltip,
 } from 'chart.js';
-import { VideoData } from '../../lib/dataFetch';
-import { prepareViewsPerDayData } from '../../lib/dataUtils';
+import { blue } from '@mui/material/colors';
+import { VideoData } from '../../../lib/dataFetch';
+import { prepareViewsPerDayData } from '../../../lib/dataUtils';
 import { options } from './ViewsPerDayChart.config';
 
 export type ViewsPerDayChartProps = {
@@ -25,8 +26,8 @@ export default function ViewsPerDayChart(props: ViewsPerDayChartProps) {
       {
         label: 'Views/Day',
         data: prepareViewsPerDayData(videoData),
-        backgroundColor: 'rgba(255, 128, 128, 0.75)',
-        borderColor: 'rgba(128, 64, 64, 0.9)',
+        backgroundColor: blue[300],
+        borderColor: blue[900],
         borderWidth: 1.5,
         hoverBorderWidth: 2,
       },

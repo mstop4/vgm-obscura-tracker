@@ -1,4 +1,6 @@
+import { TooltipItem } from 'chart.js';
 import theme from '@/theme';
+import { BarChartDataPoint } from '../../../lib/dataUtils';
 
 export const options = {
   responsive: true,
@@ -20,6 +22,15 @@ export const options = {
         size: 32,
       },
       text: 'Average View Duration %',
+    },
+    tooltip: {
+      displayColors: false,
+      callbacks: {
+        label: (context: TooltipItem<'bar'>) => {
+          const data = context.raw as BarChartDataPoint;
+          return `${data.y.toFixed(2)}% watched`;
+        },
+      },
     },
   },
   scales: {

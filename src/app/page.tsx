@@ -44,6 +44,7 @@ export default async function Home() {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-around',
+          flexWrap: 'wrap',
         }}
       >
         <Card sx={{ minWidth: 200 }}>
@@ -57,7 +58,7 @@ export default async function Home() {
         <Card sx={{ minWidth: 200 }}>
           <Typography align="center" sx={{ mx: '0.75rem', my: '0.5rem' }}>
             <Box component="span" fontWeight="fontWeightBold">
-              Channel Age:&nbsp;
+              First Video Age:&nbsp;
             </Box>
             {channelAgeHuman}
           </Typography>
@@ -67,7 +68,7 @@ export default async function Home() {
             <Box component="span" fontWeight="fontWeightBold">
               Total Views:&nbsp;
             </Box>
-            {totalViews}
+            {totalViews.toLocaleString()}
           </Typography>
         </Card>
         <Card sx={{ minWidth: 200 }}>
@@ -75,7 +76,7 @@ export default async function Home() {
             <Box component="span" fontWeight="fontWeightBold">
               Total Views/Day:&nbsp;
             </Box>
-            {totalViewsPerDay}
+            {totalViewsPerDay.toLocaleString()}
           </Typography>
         </Card>
       </Container>
