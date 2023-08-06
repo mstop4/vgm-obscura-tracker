@@ -23,6 +23,7 @@ export async function getChannelData(): Promise<YoutubeData> {
   try {
     const res = await fetch(
       `${process.env.SERVER_URL}/youtube/api/channelData`,
+      { next: { revalidate: 3600 } },
     );
     return res.json();
   } catch (e) {
