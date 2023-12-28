@@ -5,6 +5,7 @@ import { Card, Container, Box, Paper, Typography } from '@mui/material';
 import VideoDataTable from '@components/VideoDataTable';
 import { YoutubeData, getChannelData } from '../../lib/dataFetch';
 import { humanizeChannelAge } from '../../lib/dataUtils';
+import { averageViewsPerDayLagDays } from '../../lib/config';
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
@@ -24,7 +25,9 @@ export default async function Home() {
   const channelAgeHuman = humanizeChannelAge(
     dayjs.duration(channelAgeDays, 'day'),
   );
-  const totalViewsPerDay = (totalViews / channelAgeDays).toFixed(2);
+  const totalViewsPerDay = (
+    totalViews / Math.max(1, channelAgeDays - averageViewsPerDayLagDays)
+  ).toFixed(2);
 
   return (
     <Container

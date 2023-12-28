@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import { VideoData } from './dataFetch';
+import { averageViewsPerDayLagDays } from './config';
 
 export type ScatterChartDataPoint = {
   id: string;
@@ -32,7 +33,9 @@ export function calculateViewsPerDay(
   now: dayjs.Dayjs,
 ): number {
   const uploadDate = dayjs(publishedAt);
-  return views / now.diff(uploadDate, 'day');
+  return (
+    views / Math.max(1, now.diff(uploadDate, 'day') - averageViewsPerDayLagDays)
+  );
 }
 
 export function prepareViewsPerDayData(
